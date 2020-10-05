@@ -1,0 +1,14 @@
+
+schema {
+  query: Query
+}
+
+type Query{
+   findAll: [Appointment],
+   findById(id:ID): Appointment
+}
+
+type Appointment{
+   appointmentId: ID,
+   confirmationNumber: String
+}
