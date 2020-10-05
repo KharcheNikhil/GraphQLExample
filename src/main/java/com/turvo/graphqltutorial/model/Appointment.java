@@ -15,7 +15,7 @@ public class Appointment {
     private String id;
 
     @Field("appointment_id")
-    private String appointmentId;
+    private UUID appointmentId;
 
     @Field("confirmation_number")
     private String confirmationNumber;
