@@ -4,6 +4,8 @@ import com.turvo.graphqltutorial.model.Appointment;
 import com.turvo.graphqltutorial.persistence.AppointmentRepository;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
+import io.leangen.graphql.annotations.GraphQLArgument;
+import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -13,13 +15,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class AppointmentDataFetcher implements DataFetcher<Appointment> {
+public class AppointmentDataFetcher {
 
   private final AppointmentRepository repository;
 
-  @Override
-  public Appointment get(DataFetchingEnvironment environment) throws Exception {
-    String appointmentId = (String) environment.getArguments().get("id");
+  @GraphQLQuery(name = "findById")
+  public Appointment get(@GraphQLArgument(name = "id", description = "AppointmentId") String appointmentId){
     List<Appointment> appointmentList = repository.findByAppointmentId(UUID.fromString(appointmentId));
     if(appointmentList == null || appointmentList.size() == 0){
       return null;
