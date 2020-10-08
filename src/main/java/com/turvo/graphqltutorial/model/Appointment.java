@@ -1,7 +1,9 @@
 package com.turvo.graphqltutorial.model;
 
+import com.turvo.graphqltutorial.graphql.UserFetcher;
 import io.leangen.graphql.annotations.GraphQLId;
 import io.leangen.graphql.annotations.GraphQLQuery;
+import io.leangen.graphql.annotations.GraphQLTypeResolver;
 import io.leangen.graphql.annotations.types.GraphQLType;
 import java.util.UUID;
 import lombok.Data;
@@ -26,5 +28,9 @@ public class Appointment {
     @Field("confirmation_number")
     @GraphQLQuery(name = "confirmationNumber")
     private String confirmationNumber;
+
+    @GraphQLQuery(name = "createdBy")
+    @Field
+    private UserFragment createdBy;
 
 }
