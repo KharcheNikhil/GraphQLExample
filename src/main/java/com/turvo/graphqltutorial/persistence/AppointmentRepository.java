@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppointmentRepository extends MongoRepository<Appointment, String> {
   List<Appointment> findByAppointmentId(UUID appointmentId);
+
+  List<Appointment> findByConfirmationNumber(String confirmationNumber);
 }

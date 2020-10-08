@@ -27,4 +27,13 @@ public class AppointmentDataFetcher {
     }
     return appointmentList.get(0);
   }
+
+  @GraphQLQuery(name = "findByConfirmationNumber")
+  public Appointment getByConfirmationNumber(@GraphQLArgument(name = "confirmationNumber", description = "Appointment Confirmation Number") String confirmationNumber){
+    List<Appointment> appointmentList = repository.findByConfirmationNumber(confirmationNumber);
+    if(appointmentList == null || appointmentList.size() == 0){
+      return null;
+    }
+    return appointmentList.get(0);
+  }
 }

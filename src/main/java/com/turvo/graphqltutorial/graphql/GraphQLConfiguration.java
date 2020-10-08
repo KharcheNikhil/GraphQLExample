@@ -16,28 +16,24 @@ import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-@Service
+@Configuration
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class GraphQLService {
-
-  private GraphQL graphQL;
+public class GraphQLConfiguration {
 
   private final AppointmentDataFetcher appointmentDataFetcher;
   private final AllAppointmentDataFetcher allAppointmentDataFetcher;
 
-  @PostConstruct
-  private void postContruct() throws IOException {
+  @Bean
+  public GraphQL getGraphQL() {
     GraphQLSchema schema = new GraphQLSchemaGenerator()
         .withBasePackages("com.turvo.graphqltutorial.model")
         .withOperationsFromSingleton(allAppointmentDataFetcher)
         .withOperationsFromSingleton(appointmentDataFetcher).generate();
-    graphQL = GraphQL.newGraphQL(schema).build();
-  }
-
-  public GraphQL getGraphQL() {
-    return this.graphQL;
+    return GraphQL.newGraphQL(schema).build();
   }
 }
