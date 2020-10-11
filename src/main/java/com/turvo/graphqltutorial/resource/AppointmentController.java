@@ -1,6 +1,7 @@
 package com.turvo.graphqltutorial.resource;
 
 import com.turvo.graphqltutorial.persistence.AppointmentRepository;
+import graphql.ExecutionInput;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,6 @@ public class AppointmentController {
   @PostMapping
   public ResponseEntity<Object> find(@RequestBody  String query){
       ExecutionResult executionResult = graphQL.execute(query);
-      return  ResponseEntity.ok(executionResult.getData());
+      return  ResponseEntity.ok(executionResult);
   }
 }

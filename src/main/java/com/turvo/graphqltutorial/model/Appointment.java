@@ -1,12 +1,13 @@
 package com.turvo.graphqltutorial.model;
 
-import com.turvo.graphqltutorial.graphql.UserFetcher;
 import io.leangen.graphql.annotations.GraphQLId;
 import io.leangen.graphql.annotations.GraphQLQuery;
-import io.leangen.graphql.annotations.GraphQLTypeResolver;
 import io.leangen.graphql.annotations.types.GraphQLType;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import lombok.Data;
+import lombok.SneakyThrows;
+import org.apache.tomcat.jni.Time;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -32,5 +33,15 @@ public class Appointment {
     @GraphQLQuery(name = "createdBy")
     @Field
     private UserFragment createdBy;
+
+    @GraphQLQuery(name = "longString")
+    private String longString;
+
+
+    @SneakyThrows
+    public String getLongString(){
+        Thread.sleep(10000);
+        return "Some Long string after caculated too much CPU intensive operation,";
+    }
 
 }

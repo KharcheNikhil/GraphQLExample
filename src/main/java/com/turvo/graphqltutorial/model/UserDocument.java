@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
-public class UserDocument {
+public class UserDocument{
 
   @Field
   private Long userId;
